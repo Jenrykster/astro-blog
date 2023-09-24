@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import Header from "../components/Header.astro";
 interface Props {
   title: string;
@@ -23,28 +24,31 @@ const { title, description } = Astro.props;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body class="flex flex-col bg-background h-screen">
     <Header />
-    <main class="py-4 px-16 flex-1">
+    <main
+      transition:animate="slide"
+      class="flex flex-col items-center py-4 px-16 flex-1"
+    >
       <slot />
     </main>
+    <style is:global>
+      :root {
+        --text: #1f1005;
+        --background: #fef9f6;
+        --primary: #ce6722;
+        --secondary: #f7dfcf;
+        --accent: #d76b23;
+      }
+      .dark {
+        --text: #faebe0;
+        --background: #090401;
+        --primary: #dd7631;
+        --secondary: #301808;
+        --accent: #dc7028;
+      }
+    </style>
   </body>
 </html>
-
-<style is:global>
-  :root {
-    --text: #1f1005;
-    --background: #fef9f6;
-    --primary: #ce6722;
-    --secondary: #f7dfcf;
-    --accent: #d76b23;
-  }
-  .dark {
-    --text: #faebe0;
-    --background: #090401;
-    --primary: #dd7631;
-    --secondary: #301808;
-    --accent: #dc7028;
-  }
-</style>

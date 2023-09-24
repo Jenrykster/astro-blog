@@ -7,7 +7,7 @@ const { label, link } = Astro.props;
 ---
 
 <div
-  class="flex justify-center w-32 px-4 py-2 border-primary border rounded-2xl text-primary hover:bg-primary hover:text-background hover:cursor-pointer"
+  class="flex transition-colors justify-center w-32 px-4 py-2 border-primary border rounded-2xl text-primary hover:bg-primary hover:text-background hover:cursor-pointer"
 >
-  <a href={link} class="text-inherit self-center">{label}</a>
+  <a href={link} class="text-inherit font-body self-center">{label}</a>
 </div>

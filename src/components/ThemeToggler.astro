@@ -2,25 +2,36 @@
 
 ---
 
-<button class="text-text underline text-xl md:text-2xl" id="themeToggler"
-></button>
+<button
+  class="text-text text-xl md:text-2xl relative before:content-[''] before:absolute before:block before:w-full before:h-[2px]
+before:bottom-2.5 before:left-0 before:bg-text before:opacity-80
+before:hover:scale-x-100 before:scale-x-0 before:origin-top-left
+before:transition before:ease-in-out before:duration-300"
+  id="themeToggler"></button>
 
 <script is:inline>
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+function handleTheme() {
+  const prefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
 
-if (!("theme" in localStorage)) {
-  if (prefersDark) {
-    localStorage.theme = "dark";
+  if (!("theme" in localStorage)) {
+    if (prefersDark) {
+      localStorage.theme = "dark";
+    } else {
+      localStorage.theme = "light";
+    }
+  }
+
+  if (localStorage.theme === "dark") {
+    document.documentElement.classList.add("dark");
   } else {
-    localStorage.theme = "light";
+    document.documentElement.classList.remove("dark");
   }
 }
 
-if (localStorage.theme === "dark") {
-  document.documentElement.classList.add("dark");
-} else {
-  document.documentElement.classList.remove("dark");
-}
+handleTheme();
+document.addEventListener("astro:after-swap", handleTheme);
 
 const toggleTheme = () => {
   document.documentElement.classList.toggle("dark");
