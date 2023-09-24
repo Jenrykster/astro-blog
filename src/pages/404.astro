@@ -1,0 +1,28 @@
+---
+import LottieAnimation from "astro-integration-lottie/Lottie.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Jenryk">
+  <div class="flex flex-col justify-center h-full text-center">
+    <h1 class="text-text text-5xl font-bold">404</h1>
+    <h1 class="text-text text-xl">
+      The page you're looking for <i>probably</i> doesn't exist.
+    </h1>
+    <div class="self-center w-80">
+      <LottieAnimation src="animations/404.json" />
+    </div>
+    <div
+      class="shadow-lg w-fit self-center p-3 rounded-lg mt-4 border-2 border-secondary"
+    >
+      <p class="text-text">I can give you a recommendation instead...</p>
+      <p class="text-text">
+        Have you ever watched <a
+          target="_blank"
+          href="https://anilist.co/anime/7785/Yojouhan-Shinwa-Taikei"
+          class="text-primary underline italic">Tatami Galaxy</a
+        > ?
+      </p>
+    </div>
+  </div>
+</Layout>
