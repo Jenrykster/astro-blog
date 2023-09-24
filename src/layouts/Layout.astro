@@ -1,0 +1,50 @@
+---
+import Header from "../components/Header.astro";
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;1,300;1,400;1,500;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="flex flex-col bg-background h-screen">
+    <Header />
+    <main class="py-4 px-16 flex-1">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --text: #1f1005;
+    --background: #fef9f6;
+    --primary: #ce6722;
+    --secondary: #f7dfcf;
+    --accent: #d76b23;
+  }
+  .dark {
+    --text: #faebe0;
+    --background: #090401;
+    --primary: #dd7631;
+    --secondary: #301808;
+    --accent: #dc7028;
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+
+---
+
+<button class="text-text underline text-xl md:text-2xl" id="themeToggler"
+></button>
+
+<script is:inline>
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+if (!("theme" in localStorage)) {
+  if (prefersDark) {
+    localStorage.theme = "dark";
+  } else {
+    localStorage.theme = "light";
+  }
+}
+
+if (localStorage.theme === "dark") {
+  document.documentElement.classList.add("dark");
+} else {
+  document.documentElement.classList.remove("dark");
+}
+
+const toggleTheme = () => {
+  document.documentElement.classList.toggle("dark");
+  localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
+  button.innerHTML = localStorage.theme;
+};
+
+const button = document.querySelector("#themeToggler");
+button.addEventListener("click", toggleTheme);
+button.innerHTML = localStorage.theme;
+</script>

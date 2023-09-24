@@ -1,0 +1,15 @@
+---
+import NavButton from "./NavButton.astro";
+import ThemeToggler from "./ThemeToggler.astro";
+---
+
+<header class="flex justify-around p-4 border-b-2 border-primary">
+  <div class="w-1/4 flex justify-center">
+    <ThemeToggler />
+  </div>
+  <nav class="w-2/4 max-w-2xl flex justify-around gap-4">
+    <NavButton label="Home" link="/" />
+    <NavButton label="Projects" link="/works" />
+    <NavButton label="Blog" link="/blog" />
+  </nav>
+</header>
