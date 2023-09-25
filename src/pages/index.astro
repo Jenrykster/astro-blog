@@ -5,11 +5,18 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Jenryk">
   <div class="flex items-center h-full">
-    <h1 class="text-text text-5xl font-heading font-bold">
+    <h1 class="z-10 text-text text-5xl font-heading font-bold text-center md:text-left">
       Hi, I'm João. <br />How can I help <b class="bg-primary">you</b> ?
     </h1>
-    <div class="align-middle self-center w-1/2" style="transform: scaleY(1.75)">
-      <LottieAnimation src="animations/waves.json" autoplay="visible" />
+    <div class="z-0 align-middle self-center w-2/3 left-0 right-0 m-auto opacity-20 absolute md:static md:opacity-100 " style="transform: scaleY(2.5)">
+      <LottieAnimation src="animations/waves.json"  />
     </div>
   </div>
 </Layout>
+
+<script>
+  document.addEventListener("astro:after-swap", () => {
+    window.loadLottie()
+  });
+  window.loadLottie()
+</script>
