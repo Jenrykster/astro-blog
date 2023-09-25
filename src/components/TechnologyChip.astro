@@ -1,0 +1,16 @@
+---
+import { Icon } from 'astro-icon';
+
+interface Props {
+  icon: string
+  name: string
+  color?: string
+}
+
+const {color = 'text-primary border-primary', icon, name} = Astro.props
+---
+
+<div class=`flex items-center w-fit p-1 gap-2 ${color} font-body border rounded-xl`>
+  <Icon size={20} name={icon}/>
+  <p>{name}</p>
+</div>

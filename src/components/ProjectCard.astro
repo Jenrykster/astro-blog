@@ -1,13 +1,53 @@
 ---
 import { Picture } from "astro-imagetools/components";
-
+import { technologies } from '../content/config';
+import TechnologyChip from './TechnologyChip.astro';
 interface Props {
   title: string;
   image: string;
   description: string;
+  technologies: typeof technologies[number][]
+}
+interface TechnologyInfo {
+  name: string
+  icon: string
+  color?: string
 }
 
-const { description, image, title } = Astro.props;
+const technologyMapper: Record<typeof technologies[number], TechnologyInfo> = {
+  nest: {
+    icon: 'simple-icons:nestjs',
+    name: 'NestJS',
+    color: 'text-red-700 border-red-700'
+  },
+  next: {
+    icon: 'teenyicons:nextjs-outline',
+    name: 'NextJS',
+    color: 'text-gray-950 border-gray-950'
+  },
+  node: {
+    icon: 'teenyicons:nextjs-outline',
+    name: 'NodeJS',
+    color: 'text-green-800 border-green-800',
+  },
+  react: {
+    icon: 'mdi:react',
+    name: 'React',
+    color: 'text-cyan-500 border-cyan-500'
+  },
+  typescript: {
+    icon: 'teenyicons:typescript-outline',
+    name: 'Typescript',
+    color: 'text-sky-700 border-sky-700'
+  },
+  other: {
+    icon: 'mdi:console',
+    name: 'Other'
+  } 
+}
+
+const { description, image, title, technologies: projectTechnologies } = Astro.props;
+
 ---
 
 <div
@@ -25,4 +65,7 @@ const { description, image, title } = Astro.props;
   <p class="font-body text-text p-4">
     {description}
   </p>
+  <div class="flex flex-wrap gap-2">
+    {projectTechnologies.map(tech => <TechnologyChip {...technologyMapper[tech]}/>)}
+  </div>
 </div>
