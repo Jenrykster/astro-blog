@@ -1,6 +1,9 @@
 ---
+import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
 import Layout from "../layouts/Layout.astro";
+
+const projects = await getCollection("projects");
 ---
 
 <Layout
@@ -13,12 +16,19 @@ import Layout from "../layouts/Layout.astro";
   <section
     class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8 max-w-7xl"
   >
-    <ProjectCard />
-    <ProjectCard />
-    <ProjectCard />
-    <ProjectCard />
-    <ProjectCard />
-    <ProjectCard />
-    <ProjectCard />
+    {
+      projects.map((info) => {
+        return (
+          <a href={`project/${info.slug}`}>
+            <ProjectCard
+              {...info.data}
+              image={
+                info.data.image ?? "https://source.unsplash.com/3iTRMP8Uq2k"
+              }
+            />
+          </a>
+        );
+      })
+    }
   </section>
 </Layout>

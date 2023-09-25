@@ -1,21 +1,28 @@
 ---
 import { Picture } from "astro-imagetools/components";
+
+interface Props {
+  title: string;
+  image: string;
+  description: string;
+}
+
+const { description, image, title } = Astro.props;
 ---
 
 <div
   class="p-4 border-4 border-secondary shadow-sm hover:cursor-pointer hover:scale-105 transition-transform"
 >
-  <h3 class="font-heading text-2xl text-accent">Project Title</h3>
+  <h3 class="font-heading text-2xl text-accent">{title}</h3>
   <div class="rounded-lg overflow-hidden">
     <Picture
-      src="https://source.unsplash.com/3iTRMP8Uq2k"
-      alt="A bird."
+      src={image}
+      alt={`An image showing the visuals of the ${title} project`}
       width="550"
       height="300"
     />
   </div>
   <p class="font-body text-text p-4">
-    Project description impedit eum tempora nihil suscipit molestiae
-    voluptatibus odit reprehenderit numquam error nesciunt natus esse iusto.
+    {description}
   </p>
 </div>
