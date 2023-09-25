@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon';
 import { Picture } from "astro-imagetools/components";
 import Layout from './Layout.astro';
 
@@ -6,9 +7,15 @@ const {title, description, repo, link, image} = Astro.props.frontmatter
 ---
 <Layout title={title}>
   <h1 class="text-text font-body text-4xl font-bold">{title}</h1>
-  <div class="w-40 flex justify-around underline text-accent mb-4">
-    <a href={repo}>repo</a>
-    <a href={link}>link</a>
+  <div class="w-48 flex justify-around underline text-accent mb-4">
+    {repo && <a href={repo} target="blank" class="flex h-8 items-center justify-between w-16">
+      <Icon name="mdi:github" size={24}/>
+      repo
+    </a>}
+    {link && <a href={link} target="blank" class="flex h-8 items-center justify-between w-16">
+      <Icon name="mdi:open-in-new" size={24}/>
+      link
+    </a>}
   </div>
   <Picture
       src={image}

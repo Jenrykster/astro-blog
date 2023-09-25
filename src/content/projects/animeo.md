@@ -13,7 +13,7 @@ I've been using stremio for some years now and I've been pretty much completely 
 
 **anime tracking**
 
-Don't you guys love seeing how much time you've wasted in your lives ? Up to the time of this writing I've spentan equivalent of 41.9 days watching anime.
+Don't you guys love seeing how much time you've wasted in your lives ? Up to the time of this writing I've spent an equivalent of 41.9 days watching anime.
 
 But to keep this data accurate I need to keep updating the tracker service somehow. Doing it manually is way too tedious and error-prone. That's why I prefer automating stuff.
 
