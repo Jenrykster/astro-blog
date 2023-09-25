@@ -1,0 +1,27 @@
+---
+import { Picture } from "astro-imagetools/components";
+import Layout from './Layout.astro';
+
+const {title, description, date, image} = Astro.props.frontmatter
+
+---
+<Layout title={title}>
+  <h1 class="text-text font-body text-4xl font-bold text-center">{title}</h1>
+  <div class="w-48 flex justify-around underline text-accent mb-4">
+   <p class="text-text text-center font-body">
+    Published on {new Date(date).toLocaleDateString('en-GB')}
+   </p>
+  </div>
+  <Picture
+      src={image.url}
+      alt={image.alt}
+      width="550"
+      height="300"
+    />
+  <q class="text-text font-body p-4">
+    {description}
+  </q>
+  <section class="text-text font-body self-center blog-post max-w-3xl w-full">
+    <slot/>
+  </section>
+</Layout>

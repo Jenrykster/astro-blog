@@ -30,30 +30,3 @@ const {title, description, repo, link, image} = Astro.props.frontmatter
     <slot/>
   </section>
 </Layout>
-
-<style is:global>
-  .blog-post {
-    @apply text-text font-body ;
-  }
-  .blog-post p {
-    @apply text-base tracking-normal leading-8;
-  }
-  .blog-post h1 {
-    @apply text-3xl font-bold my-6;
-  }
-  .blog-post h2 {
-    @apply  text-2xl font-bold my-4;
-  }
-  .blog-post h3 {
-    @apply  text-xl font-bold my-3;
-  }
-  .blog-post h4 {
-    @apply  text-lg my-2;
-  }
-  .blog-post h5 {
-    @apply  text-base;
-  }
-  .blog-post h6 {
-    @apply  text-sm;
-  }
-</style>

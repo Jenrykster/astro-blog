@@ -1,0 +1,21 @@
+diff --git a/node_modules/astro-integration-lottie/dist/loader.js b/node_modules/astro-integration-lottie/dist/loader.js
+index b0b5f51..d20579e 100644
+--- a/node_modules/astro-integration-lottie/dist/loader.js
++++ b/node_modules/astro-integration-lottie/dist/loader.js
+@@ -1,4 +1,4 @@
+-setTimeout(async () => {
++async function loadLottie() {
+     const DEFAULT = {
+         player: "light",
+         loop: true,
+@@ -112,5 +112,8 @@ setTimeout(async () => {
+     document.dispatchEvent(new CustomEvent("astro-lottie-loaded", {
+         detail: window.astroLottie
+     }));
+-}, 0);
+-export {};
++}
++window.loadLottie = loadLottie
++setTimeout(loadLottie, 0);
++export { };
++
