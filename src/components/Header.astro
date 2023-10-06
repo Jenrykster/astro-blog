@@ -3,7 +3,9 @@ import NavButton from "./NavButton.astro";
 import ThemeToggler from "./ThemeToggler.astro";
 ---
 
-<header class="flex justify-around p-4 border-b-2 border-primary">
+<header
+  class="sticky transition-all flex justify-around p-4 border-b-2 border-primary"
+>
   <div transition:persist class="w-1/4 flex justify-center">
     <ThemeToggler />
   </div>
@@ -13,3 +15,24 @@ import ThemeToggler from "./ThemeToggler.astro";
     <NavButton label="Blog" link="/blog" />
   </nav>
 </header>
+
+<script>
+  const hiddenHeaderClass = "-mt-20";
+
+  document.addEventListener("astro:page-load", () => {
+    const main = document.querySelector("main");
+    const header = document.querySelector("header");
+
+    let prevScroll = main?.scrollTop ?? 0;
+
+    main?.addEventListener("scroll", () => {
+      const currentScroll = main.scrollTop;
+      if (currentScroll > prevScroll) {
+        header?.classList.add(hiddenHeaderClass);
+      } else {
+        header?.classList.remove(hiddenHeaderClass);
+      }
+      prevScroll = currentScroll;
+    });
+  });
+</script>
