@@ -9,10 +9,10 @@ index 20a445f..f0bf75b 100644
 -<div data-lottie data-lottie-data={JSON.stringify(lottieData)}></div>
 +<div id={lottieData.id} data-lottie data-lottie-data={JSON.stringify(lottieData)}></div>
 diff --git a/node_modules/astro-integration-lottie/dist/loader.js b/node_modules/astro-integration-lottie/dist/loader.js
-index b0b5f51..3bbe047 100644
+index b0b5f51..2d09750 100644
 --- a/node_modules/astro-integration-lottie/dist/loader.js
 +++ b/node_modules/astro-integration-lottie/dist/loader.js
-@@ -1,18 +1,20 @@
+@@ -1,18 +1,19 @@
 -setTimeout(async () => {
 +async function loadLottie(idToRender) {
      const DEFAULT = {
@@ -23,7 +23,6 @@ index b0b5f51..3bbe047 100644
      };
 -    const containers = [...document.querySelectorAll("[data-lottie]")].map(x => {
 +    let containers = [...document.querySelectorAll("[data-lottie]")].map(x => {
-+        console.log({x})
          try {
              return [x, { ...DEFAULT, ...JSON.parse(x.getAttribute("data-lottie-data") || "") }];
          }
@@ -36,7 +35,7 @@ index b0b5f51..3bbe047 100644
      if (containers.length === 0) {
          // no lottie animation return
          return;
-@@ -47,9 +49,10 @@ setTimeout(async () => {
+@@ -47,9 +48,10 @@ setTimeout(async () => {
          const animationData = animationDataMap.get(config.src);
          let player;
          if (animationData) {
@@ -48,7 +47,7 @@ index b0b5f51..3bbe047 100644
                  loop,
                  autoplay: autoplay === "visible" ? false : autoplay,
                  animationData,
-@@ -112,5 +115,8 @@ setTimeout(async () => {
+@@ -112,5 +114,8 @@ setTimeout(async () => {
      document.dispatchEvent(new CustomEvent("astro-lottie-loaded", {
          detail: window.astroLottie
      }));
