@@ -36,22 +36,6 @@ const { title, description } = Astro.props;
       <slot />
     </main>
     <style is:global>
-      ::-webkit-scrollbar {
-        width: 5px;
-        height: 0.5rem;
-        appearance: none;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0000000e;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #c6c6c658;
-        border-radius: 20px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: #b44b2e;
-        cursor: pointer;
-      }
       :root {
         --text: #1f1005;
         --background: #fef9f6;
@@ -65,6 +49,23 @@ const { title, description } = Astro.props;
         --primary: #dd7631;
         --secondary: #301808;
         --accent: #dc7028;
+      }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 0.5rem;
+        appearance: none;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0000000e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #c6c6c658;
+        border-radius: 20px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent);
+        cursor: pointer;
       }
     </style>
     <style is:global>
