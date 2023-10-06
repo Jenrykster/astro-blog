@@ -1,13 +1,18 @@
 ---
-
+import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 ---
 
-<button
-  class="text-text text-xl md:text-2xl relative before:content-[''] before:absolute before:block before:w-full before:h-[2px]
-before:bottom-2.5 before:left-0 before:bg-text before:opacity-80
-before:hover:scale-x-100 before:scale-x-0 before:origin-top-left
-before:transition before:ease-in-out before:duration-300"
-  id="themeToggler"></button>
+<div
+  id="theme-toggler"
+  class="[&_*]:stroke-text transition-all hover:cursor-pointer active:scale-75 w-11 h-full"
+>
+  <LottieAnimation
+    id="theme-animation"
+    src="/animations/theme.json"
+    loop={false}
+    autoplay={false}
+  />
+</div>
 
 <script is:inline>
 function handleTheme() {
@@ -34,12 +39,32 @@ handleTheme();
 document.addEventListener("astro:after-swap", handleTheme);
 
 const toggleTheme = () => {
+  if (window.astroLottie) {
+    const animPlayer = window.astroLottie.getAnimation("theme-animation");
+    if (localStorage.theme === "dark") {
+      animPlayer.player.setSpeed(-1);
+      animPlayer.player.play();
+    } else {
+      animPlayer.player.setSpeed(1);
+      animPlayer.player.play();
+    }
+  }
   document.documentElement.classList.toggle("dark");
   localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
-  button.innerHTML = localStorage.theme;
 };
+const setupListeners = () => {
+  const button = document.querySelector("#theme-toggler");
+  button.addEventListener("click", toggleTheme);
 
-const button = document.querySelector("#themeToggler");
-button.addEventListener("click", toggleTheme);
-button.innerHTML = localStorage.theme;
+  document.addEventListener("astro-lottie-loaded", () => {
+    if (localStorage.theme === "dark") {
+      const themeAnimation =
+        window.astroLottie.getAnimation("theme-animation").player;
+      console.log(themeAnimation.totalFrames);
+      themeAnimation.goToAndStop(themeAnimation.totalFrames, true);
+    }
+  });
+};
+setupListeners();
+document.addEventListener("astro:after-swap", setupListeners);
 </script>

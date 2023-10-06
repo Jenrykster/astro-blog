@@ -17,14 +17,14 @@ import Layout from "../layouts/Layout.astro";
       class="z-0 align-middle self-center w-2/3 left-0 right-0 m-auto opacity-20 absolute md:static md:opacity-100"
       style="transform: scaleY(2.5)"
     >
-      <LottieAnimation src="animations/waves.json" />
+      <LottieAnimation id="wave-animation" src="animations/waves.json" />
     </div>
   </div>
 </Layout>
 
 <script>
   document.addEventListener("astro:after-swap", () => {
-    window.loadLottie();
+    window.loadLottie("wave-animation");
   });
-  window.loadLottie();
+  window.loadLottie("wave-animation");
 </script>
