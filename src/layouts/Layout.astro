@@ -5,9 +5,10 @@ import MobileHeader from "../components/header/MobileHeader.astro";
 interface Props {
   title: string;
   description?: string;
+  hideHeading?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, hideHeading } = Astro.props;
 ---
 
 <!doctype html>
@@ -35,6 +36,13 @@ const { title, description } = Astro.props;
       transition:animate="slide"
       class="sm:px-16 flex flex-col items-center py-4 px-8 flex-1 overflow-y-auto"
     >
+      {
+        !hideHeading && (
+          <h1 class="text-text font-heading text-4xl text-center font-bold">
+            {title}
+          </h1>
+        )
+      }
       <slot />
     </main>
     <style is:global>

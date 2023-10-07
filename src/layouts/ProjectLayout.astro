@@ -7,7 +7,6 @@ const { title, description, repo, link, image } = Astro.props.frontmatter;
 ---
 
 <Layout title={title}>
-  <h1 class="text-text font-body text-4xl font-bold">{title}</h1>
   <div class="w-48 flex justify-around underline text-accent mb-4">
     {
       repo && (
