@@ -59,7 +59,11 @@ const {
   class="p-4 border-4 border-secondary shadow-sm hover:cursor-pointer hover:scale-105 transition-transform"
 >
   <h3 class="font-heading text-2xl text-accent">{title}</h3>
-  <div transition:name="post-thumb" class="rounded-lg overflow-hidden">
+  <div
+    transition:animate="slide"
+    transition:name="post-thumb"
+    class="rounded-lg overflow-hidden"
+  >
     <Picture
       src={image}
       alt={`An image showing the visuals of the ${title} project`}
