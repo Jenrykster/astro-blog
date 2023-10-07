@@ -7,15 +7,19 @@ import Layout from "../layouts/Layout.astro";
   title="Jenryk"
   description="Jenryk's personal website, blog and portfolio."
 >
-  <div class="flex items-center my-auto w-full max-w-5xl">
+  <div
+    class="gap-5 relative flex items-center my-auto w-full max-w-[875px] overflow-hidden"
+  >
     <h1
-      class="md:text-5xl sm:text-4xl w-1/2 z-10 text-text font-heading font-bold text-center md:text-left"
+      class="md:text-5xl w-full text-4xl sm:w-3/5 z-10 text-text font-heading font-bold text-center md:text-left"
     >
       Hi, I'm João. <br />How can I help <b
         class="bg-primary text-background px-3">you</b
       > ?
     </h1>
-    <div class="m-auto w-1/3 h-full [&_*]:h-full [&_*]:w-full">
+    <div
+      class="sm:static sm:opacity-100 sm:w-2/5 absolute flex h-full opacity-50 w-full [&_*]:h-full [&_*]:w-full"
+    >
       <LottieAnimation
         id="wave-animation"
         src="animations/waves.json"
