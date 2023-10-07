@@ -8,7 +8,7 @@ const hiddenHeaderTop = `-top-20`;
 
 <header
   id="desktop-header"
-  class={`hidden sm:flex ${headerSize} relative overflow-hidden transition-all items-center justify-around border-b-2 border-primary`}
+  class={`hidden sm:flex top-0 ${headerSize} relative overflow-hidden transition-all items-center justify-around border-b-2 border-primary`}
 >
   <div
     transition:persist
@@ -26,39 +26,39 @@ const hiddenHeaderTop = `-top-20`;
 </header>
 
 <script define:vars={{ headerSize, hiddenHeaderTop }}>
-  document.addEventListener("astro:page-load", () => {
-    const main = document.querySelector("main");
-    const header = document.querySelector("#desktop-header");
-    const closedHeaderClassList = [hiddenHeaderTop, "sm:h-0", "border-b-0"];
-    const openHeaderClassList = ["top-0", headerSize, "border-b-2"];
+document.addEventListener("astro:page-load", () => {
+  const main = document.querySelector("main");
+  const header = document.querySelector("#desktop-header");
+  const closedHeaderClassList = [hiddenHeaderTop, "h-0", "border-b-0"];
+  const openHeaderClassList = ["top-0", headerSize, "border-b-2"];
 
-    function closeHeader() {
-      openHeaderClassList.forEach((cssClass) =>
-        header?.classList.remove(cssClass),
-      );
-      closedHeaderClassList.forEach((cssClass) =>
-        header?.classList.add(cssClass),
-      );
+  function closeHeader() {
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass),
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass),
+    );
+  }
+
+  function openHeader() {
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass),
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass),
+    );
+  }
+
+  let prevScroll = main?.scrollTop ?? 0;
+  main?.addEventListener("scroll", () => {
+    const currentScroll = main.scrollTop;
+    if (currentScroll > prevScroll) {
+      closeHeader();
+    } else {
+      openHeader();
     }
-
-    function openHeader() {
-      openHeaderClassList.forEach((cssClass) =>
-        header?.classList.add(cssClass),
-      );
-      closedHeaderClassList.forEach((cssClass) =>
-        header?.classList.remove(cssClass),
-      );
-    }
-
-    let prevScroll = main?.scrollTop ?? 0;
-    main?.addEventListener("scroll", () => {
-      const currentScroll = main.scrollTop;
-      if (currentScroll > prevScroll) {
-        closeHeader();
-      } else {
-        openHeader();
-      }
-      prevScroll = currentScroll;
-    });
+    prevScroll = currentScroll;
   });
+});
 </script>
