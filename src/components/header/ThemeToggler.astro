@@ -40,15 +40,17 @@ import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 
   function toggleTheme() {
     if (window.astroLottie) {
-      const animPlayer = window.astroLottie.getAnimation("theme-animation");
-      if (!animPlayer?.player) return;
-      if (localStorage.theme === "dark") {
-        animPlayer.player.setSpeed(-1);
-        animPlayer.player.play();
-      } else {
-        animPlayer.player.setSpeed(1);
-        animPlayer.player.play();
-      }
+      const anims = window.astroLottie.getAllAnimations();
+      anims.forEach((animPlayer) => {
+        if (animPlayer.id !== "theme-animation" || !animPlayer?.player) return;
+        if (localStorage.theme === "dark") {
+          animPlayer.player.setSpeed(-1);
+          animPlayer.player.play();
+        } else {
+          animPlayer.player.setSpeed(1);
+          animPlayer.player.play();
+        }
+      });
     }
     document.documentElement.classList.toggle("dark");
     localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
