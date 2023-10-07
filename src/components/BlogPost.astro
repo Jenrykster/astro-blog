@@ -1,21 +1,21 @@
 ---
 interface Props {
-  title: string
-  date: Date
-  tags: string[]
-  description: string
+  title: string;
+  date: Date;
+  tags: string[];
+  description: string;
 }
 
-const {date, description, tags, title} = Astro.props
+const { date, description, tags, title } = Astro.props;
 ---
 
 <div class="font-body text-text hover:cursor-pointer">
   <h2 class="text-2xl font-heading text-primary">{title}</h2>
   <p class="text-text">{description}</p>
   <div class="flex justify-between gap-4 opacity-50">
-    <p>{date.toLocaleDateString('en-GB')}</p>
+    <p>{date.toLocaleDateString("en-GB")}</p>
     <div>
-      [ {tags.join(', ')} ]
+      [ {tags.join(", ")} ]
     </div>
   </div>
 </div>

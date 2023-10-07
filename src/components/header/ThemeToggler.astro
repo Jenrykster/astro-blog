@@ -17,7 +17,7 @@ import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 <script>
   function handleTheme() {
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
 
     if (!("theme" in localStorage)) {

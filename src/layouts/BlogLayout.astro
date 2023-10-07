@@ -39,7 +39,7 @@ const {
   <script define:vars={{ slug, secret, viewCounterURL, devEnv }}>
     async function getAndUpdateViews() {
       const res = await fetch(
-        `${viewCounterURL}?post=${slug}&secret=${secret}`
+        `${viewCounterURL}?post=${slug}&secret=${secret}`,
       );
       const info = await res.json();
 
