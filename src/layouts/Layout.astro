@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-import Header from "../components/Header.astro";
+import DesktopHeader from "../components/header/DesktopHeader.astro";
+import MobileHeader from "../components/header/MobileHeader.astro";
 interface Props {
   title: string;
   description?: string;
@@ -28,7 +29,8 @@ const { title, description } = Astro.props;
     <ViewTransitions />
   </head>
   <body class="flex flex-col bg-background h-screen overflow-hidden">
-    <Header />
+    <DesktopHeader />
+    <MobileHeader />
     <main
       transition:animate="slide"
       class="flex flex-col items-center py-4 px-16 flex-1 overflow-y-auto"

@@ -1,0 +1,71 @@
+---
+import LottieAnimation from "astro-integration-lottie/Lottie.astro";
+---
+
+<div
+  data-theme-toggler
+  class="[&_*]:stroke-text transition-all hover:cursor-pointer active:scale-75 w-11 h-full"
+>
+  <LottieAnimation
+    id="theme-animation"
+    src="/animations/theme.json"
+    loop={false}
+    autoplay={false}
+  />
+</div>
+
+<script>
+  function handleTheme() {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    if (!("theme" in localStorage)) {
+      if (prefersDark) {
+        localStorage.theme = "dark";
+      } else {
+        localStorage.theme = "light";
+      }
+    }
+
+    if (localStorage.theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
+
+  handleTheme();
+  document.addEventListener("astro:after-swap", handleTheme);
+
+  function toggleTheme() {
+    if (window.astroLottie) {
+      const animPlayer = window.astroLottie.getAnimation("theme-animation");
+      if (!animPlayer?.player) return;
+      if (localStorage.theme === "dark") {
+        animPlayer.player.setSpeed(-1);
+        animPlayer.player.play();
+      } else {
+        animPlayer.player.setSpeed(1);
+        animPlayer.player.play();
+      }
+    }
+    document.documentElement.classList.toggle("dark");
+    localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
+  }
+
+  const setupListeners = () => {
+    const buttons = document.querySelectorAll("[data-theme-toggler]");
+    buttons.forEach((button) => button.addEventListener("click", toggleTheme));
+
+    document.addEventListener("astro-lottie-loaded", () => {
+      if (localStorage.theme === "dark") {
+        const themeAnimation =
+          window.astroLottie?.getAnimation("theme-animation")?.player;
+        themeAnimation?.goToAndStop(themeAnimation.totalFrames, true);
+      }
+    });
+  };
+  setupListeners();
+  document.addEventListener("astro:after-swap", setupListeners);
+</script>

@@ -1,0 +1,106 @@
+---
+import Icon from "astro-icon";
+import HeaderRoutes from "./HeaderRoutes.astro";
+import ThemeToggler from "./ThemeToggler.astro";
+
+const HEADER_SIZE = 2;
+---
+
+<header
+  id="mobile-header"
+  class={`sm:hidden shadow-sm h-${HEADER_SIZE} py-4 relative overflow-visible transition-all flex items-center justify-around border-b-2 border-primary`}
+>
+  <div
+    transition:persist
+    class="z-10 absolute left-5 -top-0 rounded-full bg-background p-2 flex justify-center"
+  >
+    <ThemeToggler />
+  </div>
+
+  <nav
+    id="mobile-navbar"
+    class="z-10 pointer-events-none opacity-0 flex max-h-0 transition-all w-2/4 max-w-2xl flex-col justify-around gap-4"
+  >
+    <HeaderRoutes />
+  </nav>
+  <div
+    id="navbar-toggle"
+    class="z-10 text-primary cursor-pointer absolute left-auto -bottom-3 bg-background rounded-md px-3 shadow-sm"
+  >
+    <Icon size={20} name="mdi:hamburger-menu" />
+  </div>
+</header>
+
+<script define:vars={{ HEADER_SIZE }}>
+let isHeaderOpen = false;
+document.addEventListener("astro:page-load", () => {
+  const main = document.querySelector("main");
+
+  const navbar = document.querySelector("#mobile-navbar");
+  const closeNavClassList = ["max-h-0", "opacity-0", "pointer-events-none"];
+  const openNavClassList = ["max-h-64", "opacity-100", "pointer-events-auto"];
+
+  function closeNavbar() {
+    openNavClassList.forEach((cssClass) =>
+      navbar?.classList.remove(cssClass)
+    );
+    closeNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
+  }
+
+  function openNavbar() {
+    openNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
+    closeNavClassList.forEach((cssClass) =>
+      navbar?.classList.remove(cssClass)
+    );
+  }
+
+  const header = document.querySelector("#mobile-header");
+  const closedHeaderClassList = [`h-${HEADER_SIZE}`];
+  const openHeaderClassList = ["h-auto"];
+
+  function closeHeader() {
+    closeNavbar();
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass)
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass)
+    );
+    isHeaderOpen = false;
+  }
+
+  function openHeader() {
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass)
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass)
+    );
+    isHeaderOpen = true;
+  }
+
+  function toggleHeader() {
+    if (isHeaderOpen) {
+      closeHeader();
+    } else {
+      openNavbar();
+      openHeader();
+    }
+  }
+
+  let prevScroll = main?.scrollTop ?? 0;
+  main?.addEventListener("scroll", () => {
+    const currentScroll = main.scrollTop;
+    if (currentScroll > prevScroll) {
+      closeHeader();
+    } else {
+      openHeader();
+    }
+    prevScroll = currentScroll;
+  });
+
+  document
+    .querySelector("#navbar-toggle")
+    .addEventListener("click", toggleHeader);
+});
+</script>
