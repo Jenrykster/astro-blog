@@ -1,32 +1,52 @@
 ---
-import { Icon } from 'astro-icon';
+import { Icon } from "astro-icon";
 import { Picture } from "astro-imagetools/components";
-import Layout from './Layout.astro';
+import Layout from "./Layout.astro";
 
-const {title, description, repo, link, image} = Astro.props.frontmatter
+const { title, description, repo, link, image } = Astro.props.frontmatter;
 ---
+
 <Layout title={title}>
   <h1 class="text-text font-body text-4xl font-bold">{title}</h1>
   <div class="w-48 flex justify-around underline text-accent mb-4">
-    {repo && <a href={repo} target="blank" class="flex h-8 items-center justify-between w-16">
-      <Icon name="mdi:github" size={24}/>
-      repo
-    </a>}
-    {link && <a href={link} target="blank" class="flex h-8 items-center justify-between w-16">
-      <Icon name="mdi:open-in-new" size={24}/>
-      link
-    </a>}
+    {
+      repo && (
+        <a
+          href={repo}
+          target="blank"
+          class="flex h-8 items-center justify-between w-16"
+        >
+          <Icon name="mdi:github" size={24} />
+          repo
+        </a>
+      )
+    }
+    {
+      link && (
+        <a
+          href={link}
+          target="blank"
+          class="flex h-8 items-center justify-between w-16"
+        >
+          <Icon name="mdi:open-in-new" size={24} />
+          link
+        </a>
+      )
+    }
   </div>
-  <Picture
+
+  <div transition:name="post-thumb">
+    <Picture
       src={image}
       alt={`An image showing the visuals of the ${title} project`}
       width="550"
       height="300"
     />
+  </div>
   <q class="text-text font-body p-4">
     {description}
   </q>
   <section class="text-text font-body self-center blog-post max-w-3xl w-full">
-    <slot/>
+    <slot />
   </section>
 </Layout>
