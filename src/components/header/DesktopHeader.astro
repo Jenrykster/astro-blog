@@ -29,7 +29,7 @@ const hiddenHeaderTop = `-top-20`;
 let isHeaderOpen = true;
 
 document.addEventListener("astro:page-load", () => {
-  const main = document.querySelector("main");
+  const scrollContainer = document.querySelector("#scroll-container");
   const header = document.querySelector("#desktop-header");
   const closedHeaderClassList = [hiddenHeaderTop, "h-0", "border-b-0"];
   const openHeaderClassList = ["top-0", headerSize, "border-b-2"];
@@ -58,9 +58,9 @@ document.addEventListener("astro:page-load", () => {
     }, 155);
   }
 
-  let prevScroll = main?.scrollTop ?? 0;
-  main?.addEventListener("scroll", () => {
-    const currentScroll = main.scrollTop;
+  let prevScroll = scrollContainer?.scrollTop ?? 0;
+  scrollContainer?.addEventListener("scroll", () => {
+    const currentScroll = scrollContainer.scrollTop;
     if (currentScroll > prevScroll && isHeaderOpen) {
       closeHeader();
     } else if (currentScroll < prevScroll && !isHeaderOpen) {

@@ -1,4 +1,5 @@
 ---
+import Icon from "astro-icon";
 import { ViewTransitions } from "astro:transitions";
 import DesktopHeader from "../components/header/DesktopHeader.astro";
 import MobileHeader from "../components/header/MobileHeader.astro";
@@ -28,23 +29,6 @@ const { title, description, hideHeading } = Astro.props;
     />
     <title>{title}</title>
     <ViewTransitions />
-  </head>
-  <body class="flex flex-col bg-background h-screen overflow-hidden">
-    <DesktopHeader />
-    <MobileHeader />
-    <main
-      transition:animate="slide"
-      class="sm:px-16 flex flex-col items-center py-4 px-8 flex-1 overflow-y-auto"
-    >
-      {
-        !hideHeading && (
-          <h1 class="text-text font-heading text-4xl text-center font-bold">
-            {title}
-          </h1>
-        )
-      }
-      <slot />
-    </main>
     <style is:global>
       :root {
         --text: #1f1005;
@@ -104,5 +88,40 @@ const { title, description, hideHeading } = Astro.props;
         @apply text-sm;
       }
     </style>
+  </head>
+  <body class="flex flex-col bg-background h-screen overflow-hidden">
+    <DesktopHeader />
+    <MobileHeader />
+    <div
+      id="scroll-container"
+      class="flex flex-col w-full h-full overflow-y-auto"
+    >
+      <main
+        transition:animate="slide"
+        class="sm:px-16 flex flex-col items-center py-4 px-8 flex-1"
+      >
+        {
+          !hideHeading && (
+            <h1 class="text-text font-heading text-4xl text-center font-bold">
+              {title}
+            </h1>
+          )
+        }
+        <slot />
+      </main>
+      <footer
+        class="min-h-[4rem] text-text border-t-2 border-primary w-full flex gap-5 items-center justify-center [&_svg:hover]:text-primary [&_svg:hover]:cursor-pointer"
+      >
+        <a target="_blank" href="https://github.com/Jenrykster">
+          <Icon name="mdi:github" size={45} />
+        </a>
+        <a target="_blank" href="mailto:joaoenrique.san@gmail.com">
+          <Icon name="mdi:email" size={45} />
+        </a>
+        <a target="_blank" href="https://www.linkedin.com/in/jenryk/">
+          <Icon name="mdi:linkedin" size={45} />
+        </a>
+      </footer>
+    </div>
   </body>
 </html>

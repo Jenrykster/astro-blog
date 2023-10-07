@@ -31,79 +31,79 @@ const HEADER_SIZE = 2;
 </header>
 
 <script define:vars={{ HEADER_SIZE }}>
-  let isHeaderOpen = false;
-  document.addEventListener("astro:page-load", () => {
-    const main = document.querySelector("main");
+let isHeaderOpen = false;
+document.addEventListener("astro:page-load", () => {
+  const scrollContainer = document.querySelector("#scroll-container");
 
-    const navbar = document.querySelector("#mobile-navbar");
-    const closeNavClassList = ["max-h-0", "opacity-0", "pointer-events-none"];
-    const openNavClassList = ["max-h-64", "opacity-100", "pointer-events-auto"];
+  const navbar = document.querySelector("#mobile-navbar");
+  const closeNavClassList = ["max-h-0", "opacity-0", "pointer-events-none"];
+  const openNavClassList = ["max-h-64", "opacity-100", "pointer-events-auto"];
 
-    function closeNavbar() {
-      openNavClassList.forEach((cssClass) =>
-        navbar?.classList.remove(cssClass),
-      );
-      closeNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
+  function closeNavbar() {
+    openNavClassList.forEach((cssClass) =>
+      navbar?.classList.remove(cssClass),
+    );
+    closeNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
+  }
+
+  function openNavbar() {
+    openNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
+    closeNavClassList.forEach((cssClass) =>
+      navbar?.classList.remove(cssClass),
+    );
+  }
+
+  const header = document.querySelector("#mobile-header");
+  const closedHeaderClassList = [`h-${HEADER_SIZE}`];
+  const openHeaderClassList = ["h-auto"];
+
+  function closeHeader() {
+    closeNavbar();
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass),
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass),
+    );
+    setTimeout(() => {
+      isHeaderOpen = false;
+    }, 155);
+  }
+
+  function openHeader() {
+    openHeaderClassList.forEach((cssClass) =>
+      header?.classList.add(cssClass),
+    );
+    closedHeaderClassList.forEach((cssClass) =>
+      header?.classList.remove(cssClass),
+    );
+    setTimeout(() => {
+      isHeaderOpen = true;
+    }, 155);
+  }
+
+  function toggleHeader() {
+    if (header.classList.contains(openHeaderClassList[0])) {
+      closeHeader();
+    } else {
+      openNavbar();
+      openHeader();
+    }
+  }
+
+  let prevScroll = scrollContainer?.scrollTop ?? 0;
+  scrollContainer?.addEventListener("scroll", () => {
+    const currentScroll = scrollContainer.scrollTop;
+
+    if (currentScroll > prevScroll && isHeaderOpen) {
+      closeHeader();
     }
 
-    function openNavbar() {
-      openNavClassList.forEach((cssClass) => navbar?.classList.add(cssClass));
-      closeNavClassList.forEach((cssClass) =>
-        navbar?.classList.remove(cssClass),
-      );
-    }
-
-    const header = document.querySelector("#mobile-header");
-    const closedHeaderClassList = [`h-${HEADER_SIZE}`];
-    const openHeaderClassList = ["h-auto"];
-
-    function closeHeader() {
-      closeNavbar();
-      openHeaderClassList.forEach((cssClass) =>
-        header?.classList.remove(cssClass),
-      );
-      closedHeaderClassList.forEach((cssClass) =>
-        header?.classList.add(cssClass),
-      );
-      setTimeout(() => {
-        isHeaderOpen = false;
-      }, 155);
-    }
-
-    function openHeader() {
-      openHeaderClassList.forEach((cssClass) =>
-        header?.classList.add(cssClass),
-      );
-      closedHeaderClassList.forEach((cssClass) =>
-        header?.classList.remove(cssClass),
-      );
-      setTimeout(() => {
-        isHeaderOpen = true;
-      }, 155);
-    }
-
-    function toggleHeader() {
-      if (header.classList.contains(openHeaderClassList[0])) {
-        closeHeader();
-      } else {
-        openNavbar();
-        openHeader();
-      }
-    }
-
-    let prevScroll = main?.scrollTop ?? 0;
-    main?.addEventListener("scroll", () => {
-      const currentScroll = main.scrollTop;
-
-      if (currentScroll > prevScroll && isHeaderOpen) {
-        closeHeader();
-      }
-
-      prevScroll = currentScroll;
-    });
-
-    document
-      .querySelector("#navbar-toggle")
-      .addEventListener("click", toggleHeader);
+    prevScroll = currentScroll;
   });
+
+  document
+    .querySelector("#navbar-toggle")
+    .addEventListener("click", toggleHeader);
+});
 </script>
