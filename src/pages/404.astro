@@ -1,6 +1,61 @@
 ---
 import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 import Layout from "../layouts/Layout.astro";
+type Recommendation = {
+  type: "show" | "book" | "song" | "game";
+  name: string;
+  link: string;
+};
+
+const recommendationList: Recommendation[] = [
+  {
+    name: "Tatami Galaxy",
+    type: "show",
+    link: "https://anilist.co/anime/7785/Yojouhan-Shinwa-Taikei",
+  },
+  {
+    name: "Space Dandy",
+    type: "show",
+    link: "https://anilist.co/anime/20057/SpaceDandy",
+  },
+  {
+    name: "MF DOOM's Rapp Snitch Knishes",
+    type: "song",
+    link: "https://www.youtube.com/watch?v=gQtKJbptcns",
+  },
+  {
+    name: "Nujabes's Luv Sic hexalogy",
+    type: "song",
+    link: "https://www.youtube.com/watch?v=jfTdzrtGKuY",
+  },
+  {
+    name: "Disco Elysium",
+    type: "game",
+    link: "https://store.steampowered.com/app/632470/Disco_Elysium__The_Final_Cut/",
+  },
+  {
+    name: "Hi-Fi Rush",
+    type: "game",
+    link: "https://store.steampowered.com/app/1817230/HiFi_RUSH/",
+  },
+  {
+    name: "Bomb Rush Cyberfunk",
+    type: "game",
+    link: "https://store.steampowered.com/app/1353230/Bomb_Rush_Cyberfunk/",
+  },
+  {
+    name: "The Hitchiker's Guide to the Galaxy",
+    type: "book",
+    link: "https://www.goodreads.com/book/show/11.The_Hitchhiker_s_Guide_to_the_Galaxy",
+  },
+];
+
+const verbs: Record<Recommendation["type"], string> = {
+  book: "read",
+  game: "played",
+  show: "watched",
+  song: "listened to",
+};
 ---
 
 <Layout title="Jenryk">
@@ -16,7 +71,7 @@ import Layout from "../layouts/Layout.astro";
       class="shadow-lg w-fit self-center p-3 rounded-lg mt-4 border-2 border-secondary"
     >
       <p class="text-text">I can give you a recommendation instead...</p>
-      <p class="text-text">
+      <p class="text-text" id="recommendation-card">
         Have you ever watched <a
           target="_blank"
           href="https://anilist.co/anime/7785/Yojouhan-Shinwa-Taikei"
@@ -26,3 +81,17 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </div>
 </Layout>
+
+<script define:vars={{ recommendationList, verbs }}>
+const recommendationCard = document.querySelector("#recommendation-card");
+const chosenRecommendation =
+  recommendationList[Math.floor(Math.random() * recommendationList.length)];
+
+recommendationCard.innerHTML = `
+  Have you ever ${verbs[chosenRecommendation.type]} <a
+          target="_blank"
+          href="${chosenRecommendation.link}"
+          class="text-primary underline italic">${chosenRecommendation.name}</a
+        > ?
+  `;
+</script>
