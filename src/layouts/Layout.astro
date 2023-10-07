@@ -21,6 +21,9 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
     <meta name="description" content={description} />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={thumbnail} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={isPost ? "article" : "website"} />

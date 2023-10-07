@@ -12,7 +12,7 @@ const { title, description, repo, link, image } = Astro.props.frontmatter;
   title={title}
   description={description}
   isPost
-  thumbnail={image}
+  thumbnail={image.url}
 >
   <div class="w-48 flex justify-around underline text-accent mb-4">
     {
