@@ -26,6 +26,8 @@ const hiddenHeaderTop = `-top-20`;
 </header>
 
 <script define:vars={{ headerSize, hiddenHeaderTop }}>
+let isHeaderOpen = true;
+
 document.addEventListener("astro:page-load", () => {
   const main = document.querySelector("main");
   const header = document.querySelector("#desktop-header");
@@ -39,6 +41,9 @@ document.addEventListener("astro:page-load", () => {
     closedHeaderClassList.forEach((cssClass) =>
       header?.classList.add(cssClass),
     );
+    setTimeout(() => {
+      isHeaderOpen = false;
+    }, 155);
   }
 
   function openHeader() {
@@ -48,14 +53,17 @@ document.addEventListener("astro:page-load", () => {
     closedHeaderClassList.forEach((cssClass) =>
       header?.classList.remove(cssClass),
     );
+    setTimeout(() => {
+      isHeaderOpen = true;
+    }, 155);
   }
 
   let prevScroll = main?.scrollTop ?? 0;
   main?.addEventListener("scroll", () => {
     const currentScroll = main.scrollTop;
-    if (currentScroll > prevScroll) {
+    if (currentScroll > prevScroll && isHeaderOpen) {
       closeHeader();
-    } else {
+    } else if (currentScroll < prevScroll && !isHeaderOpen) {
       openHeader();
     }
     prevScroll = currentScroll;

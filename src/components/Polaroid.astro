@@ -1,0 +1,22 @@
+---
+import { Picture } from "astro-imagetools/components";
+interface Props {
+  classList: string;
+  description: string;
+  src: string;
+  alt: string;
+}
+
+const { classList, description, src, alt } = Astro.props;
+---
+
+<div
+  class=`p-4 hover:scale-110 hover:rotate-0 hover:drop-shadow-xl transition-all pb-0 rounded-sm drop-shadow-md w-fit bg-gray-50 h-fit ${classList}`
+>
+  <div class="relative">
+    <div class="absolute h-full w-full z-10 shadow-[inset_0_0_5px_#00000055]">
+    </div>
+    <Picture src={src} alt={alt} height="275" />
+  </div>
+  <p class="py-4 text-center italic opacity-50">{description}</p>
+</div>

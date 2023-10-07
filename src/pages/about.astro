@@ -1,0 +1,113 @@
+---
+import Polaroid from "../components/Polaroid.astro";
+import Layout from "../layouts/Layout.astro";
+function getYearsOfExperience() {
+  const experiencePeriod = new Date(
+    new Date().getTime() - new Date(2021, 9, 0).getTime(),
+  );
+  return Math.abs(experiencePeriod.getUTCFullYear() - 1970);
+}
+
+const yearsOfExperience = getYearsOfExperience();
+---
+
+<Layout title="About me ">
+  <div class="flex flex-col self-center max-w-4xl w-full gap-14 py-10">
+    <section
+      class="items-center flex flex-col sm:flex-row w-full justify-around gap-5"
+    >
+      <Polaroid
+        alt="A selfie of me in front of a computer"
+        classList="sm:-rotate-6"
+        description="Me doing stuff"
+        src="/images/photo1.jpg"
+      />
+      <div class="flex flex-col w-full sm:w-1/2 gap-4 justify-center">
+        <h4 class="font-heading text-text text-xl font-bold text-center">
+          Who's this guy ?
+        </h4>
+        <p class="text-text opacity-75">
+          Well, that's me, <b>João Henrique</b> also known as <b>Jenryk</b>. I'm
+          a web-developer located in Brazil, whose focus is on front-end
+          development.
+        </p>
+        <p class="text-text opacity-75">
+          I really like creating stuff on my spare time and geek culture as
+          well.
+        </p>
+      </div>
+    </section>
+    <section
+      class="flex flex-col-reverse sm:flex-row w-full items-center justify-around gap-5"
+    >
+      <div class="flex flex-col w-full sm:w-1/2 gap-4 justify-center">
+        <h4 class="font-heading text-text text-xl font-bold text-center">
+          Work experience
+        </h4>
+        <p class="text-text opacity-75">
+          I've been professionaly working with software development for <b
+            id="years-of-experience"
+          >
+            {yearsOfExperience}
+             years</b
+          >.
+        </p>
+        <p class="text-text opacity-75">
+          For most of that time I worked on different kinds of applications for
+          different clients. I was able to get this kind of experience by
+          working at a <b>software house</b>.
+        </p>
+      </div>
+      <Polaroid
+        alt="My siamese cat sitting on a box"
+        classList="sm:rotate-6"
+        description="A random pic of my cat"
+        src="/images/photo2.jpg"
+      />
+    </section>
+    <section
+      class="items-center flex flex-col sm:flex-row w-full justify-around gap-5"
+    >
+      <Polaroid
+        alt="A photo of my cat with her big eyes looking into the camera"
+        classList="sm:-rotate-6"
+        description="Another one"
+        src="/images/photo3.jpg"
+      />
+      <div class="flex flex-col w-full sm:w-1/2 gap-4 justify-center">
+        <h4 class="font-heading text-text text-xl font-bold text-center">
+          Skills
+        </h4>
+        <p class="text-text opacity-75">
+          Since I was a kid I played with a lot of different technologies but my
+          current main skills are: Front-end development using <b>NextJS</b> for
+          SSR or <b>React</b>, Mobile app development using <b>React Native</b>
+           and CLI tools development using <b>Go</b>lang
+        </p>
+        <p class="text-text opacity-75">
+          But I'm always learning, I like being an early adopter in promising
+          tech. Currently I'm digging my teeth on <b>Astro</b>, <b>Bun</b> and <b
+            >Tamagui</b
+          >. Feel free to take a look into my <a
+            class="text-accent underline"
+            href="/works">projects</a
+          > page to see what I've been working on.
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  function getYearsOfExperience() {
+    const experiencePeriod = new Date(
+      new Date().getTime() - new Date(2021, 9, 0).getTime(),
+    );
+    return Math.abs(experiencePeriod.getUTCFullYear() - 1970);
+  }
+  document.addEventListener("astro:page-load", () => {
+    const yearsOfExpEl = document.querySelector("#years-of-experience");
+    if (yearsOfExpEl)
+      yearsOfExpEl.innerHTML = getYearsOfExperience() + " years";
+  });
+</script>
