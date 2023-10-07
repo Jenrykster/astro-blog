@@ -6,7 +6,14 @@ import Layout from "./Layout.astro";
 const { title, description, repo, link, image } = Astro.props.frontmatter;
 ---
 
-<Layout title={title}>
+<Layout
+  title={title}
+  description={description}
+  title={title}
+  description={description}
+  isPost
+  thumbnail={image}
+>
   <div class="w-48 flex justify-around underline text-accent mb-4">
     {
       repo && (

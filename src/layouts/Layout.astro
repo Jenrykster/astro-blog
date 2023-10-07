@@ -7,9 +7,11 @@ interface Props {
   title: string;
   description?: string;
   hideHeading?: boolean;
+  thumbnail?: string;
+  isPost?: boolean;
 }
 
-const { title, description, hideHeading } = Astro.props;
+const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
 ---
 
 <!doctype html>
@@ -19,6 +21,12 @@ const { title, description, hideHeading } = Astro.props;
     <meta name="description" content={description} />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={isPost ? "article" : "website"} />
+    <meta property="og:image" content={thumbnail} />
+    <meta property="og:url" content="https://jenryk.rocks" />
+    <meta property="og:site_name" content="Jenryk's portfolio" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
