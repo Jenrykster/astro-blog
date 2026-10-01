@@ -1,6 +1,6 @@
 ---
 import Icon from "astro-icon";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import DesktopHeader from "../components/header/DesktopHeader.astro";
 import MobileHeader from "../components/header/MobileHeader.astro";
 interface Props {
@@ -10,6 +10,8 @@ interface Props {
   thumbnail?: string;
   isPost?: boolean;
 }
+
+import '../styles/global.css'
 
 const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
 ---
@@ -40,7 +42,7 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
     />
     <title>{title}</title>
     <script async src="https://us.umami.is/script.js" data-website-id="b95c6e45-a51e-4bdc-ae2e-2bea2e76e6ee"></script>
-    <ViewTransitions />
+    <ClientRouter />
     <style is:global>
       :root {
         --text: #1f1005;
@@ -75,6 +77,8 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
       }
     </style>
     <style is:global>
+      @reference "../styles/global.css"
+
       .blog-post {
         @apply text-text font-body;
       }
