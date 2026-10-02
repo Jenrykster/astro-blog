@@ -14,9 +14,11 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@iconify-json/ic": "^1.2.4",
+    "@iconify-json/mdi": "^1.2.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.5",
-    "astro-icon": "^0.8.1",
+    "astro-icon": "^1.2.0",
     "astro-integration-lottie": "^0.3.2",
     "lottie-web": "^5.12.2",
     "patch-package": "^8.0.0",
