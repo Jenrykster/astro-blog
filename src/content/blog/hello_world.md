@@ -6,7 +6,6 @@ image:
   url: "https://source.unsplash.com/ARC2Ip4tsg4"
   alt: 'Picture of an old tv with "Hello" written on it. Image by Trent Pickering on Unsplash.'
 tags: ["blogging", "astro", "introduction"]
-layout: "../../layouts/BlogLayout.astro"
 ---
 
 # Olá 世界, Hello Mundo
