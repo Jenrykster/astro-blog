@@ -1,7 +1,7 @@
 ---
 title: "Animeo"
 description: "A stremio addon that allows users to sync their progress to Anilist"
-image: "https://source.unsplash.com/3iTRMP8Uq2k"
+image: "https://images.unsplash.com/photo-1543955946-8d33e764d8f2?q=80&auto=format&fit=crop"
 technologies: ["node", "other"]
 repo: "https://github.com/Jenrykster/animeo"
 link: https://7a625ac658ec-animeo.baby-beamup.club/configure

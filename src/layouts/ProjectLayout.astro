@@ -1,16 +1,16 @@
 ---
 import { Icon } from "astro-icon";
-import { Picture } from "astro:assets";
+import { inferRemoteSize, Picture } from "astro:assets";
 import Layout from "./Layout.astro";
 
 const { title, description, repo, link, image } = Astro.props.frontmatter;
+const { width, height } = await inferRemoteSize(image);
 ---
 
 <Layout
   title={title}
   description={description}
   title={title}
-  description={description}
   isPost
   thumbnail={image}
 >
@@ -45,8 +45,9 @@ const { title, description, repo, link, image } = Astro.props.frontmatter;
     <Picture
       src={image}
       alt={`An image showing the visuals of the ${title} project`}
-      width="550"
-      height="300"
+      width={width}
+      height={height}
+      class="w-[550px] h-[300px] object-cover"
     />
   </div>
   <q class="text-text font-body p-4">

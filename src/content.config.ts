@@ -17,7 +17,7 @@ const projectCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     technologies: z.array(technologiesEnum),
-    image: z.string().optional(),
+    image: z.string(),
     repo: z.string().optional(),
     link: z.string().optional(),
   }),
