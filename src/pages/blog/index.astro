@@ -12,7 +12,7 @@ const posts = await getCollection("blog");
   >
     {
       posts.map((post) => (
-        <a href={`blog/${post.slug}`}>
+        <a href={`blog/${post.id}`}>
           <BlogPost {...post.data} />
         </a>
       ))

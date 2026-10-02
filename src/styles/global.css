@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-text: var(--text);
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+
+  --text-sm: 0.707rem;
+  --text-sm--line-height: normal;
+  
+  --text-base: 1rem;
+  --text-base--line-height: normal;
+  
+  --text-xl: 1.414rem;
+  --text-xl--line-height: normal;
+  
+  --text-2xl: 1.999rem;
+  --text-2xl--line-height: normal;
+  
+  --text-3xl: 2.827rem;
+  --text-3xl--line-height: normal;
+  
+  --text-4xl: 3.997rem;
+  --text-4xl--line-height: normal;
+  
+  --text-5xl: 5.652rem;
+  --text-5xl--line-height: normal;
+  
+
+  --font-heading: "Miriam Libre", sans-serif;
+  --font-body: "Miriam Libre", sans-serif;
+
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+}
+
+:root {
+  --text: #1f1005;
+  --background: #fef9f6;
+  --primary: #ce6722;
+  --secondary: #f7dfcf;
+  --accent: #d76b23;
+}
+.dark {
+  --text: #faebe0;
+  --background: #090401;
+  --primary: #dd7631;
+  --secondary: #301808;
+  --accent: #dc7028;
+}

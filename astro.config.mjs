@@ -1,10 +1,20 @@
 import { defineConfig } from "astro/config";
 
-import tailwind from "@astrojs/tailwind";
-import { astroImageTools } from "astro-imagetools";
 import lottie from "astro-integration-lottie";
+
+import tailwindcss from "@tailwindcss/vite";
+
+import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), lottie(), astroImageTools],
+  integrations: [lottie(), icon()],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  image: {
+    domains: ['images.unsplash.com']
+  }
 });

@@ -1,4 +1,6 @@
-import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
+import { defineCollection } from "astro:content";
 export const technologies = [
   "typescript",
   "react",
@@ -10,19 +12,19 @@ export const technologies = [
 const technologiesEnum = z.enum(technologies);
 
 const projectCollection = defineCollection({
-  type: "content",
+  loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     technologies: z.array(technologiesEnum),
-    image: z.string().optional(),
+    image: z.string(),
     repo: z.string().optional(),
     link: z.string().optional(),
   }),
 });
 
 const blogCollection = defineCollection({
-  type: "content",
+  loader: glob({ base: './src/content/blog/', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

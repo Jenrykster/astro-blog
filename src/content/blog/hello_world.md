@@ -3,10 +3,9 @@ title: "Olá 世界, Hello Mundo"
 date: 2023-09-03
 description: "Every blog has its first post, this is that post."
 image:
-  url: "https://source.unsplash.com/ARC2Ip4tsg4"
+  url: "https://images.unsplash.com/photo-1633912679678-ec3b1d853030?q=80&auto=format&fit=crop"
   alt: 'Picture of an old tv with "Hello" written on it. Image by Trent Pickering on Unsplash.'
 tags: ["blogging", "astro", "introduction"]
-layout: "../../layouts/BlogLayout.astro"
 ---
 
 # Olá 世界, Hello Mundo

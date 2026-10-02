@@ -1,6 +1,6 @@
 ---
-import { Picture } from "astro-imagetools/components";
-import { technologies } from "../content/config";
+import { Picture, inferRemoteSize } from "astro:assets";
+import { technologies } from "../content.config.ts";
 import TechnologyChip from "./TechnologyChip.astro";
 interface Props {
   title: string;
@@ -53,6 +53,9 @@ const {
   title,
   technologies: projectTechnologies,
 } = Astro.props;
+
+
+const {width, height} = await inferRemoteSize(image)
 ---
 
 <div
@@ -62,13 +65,14 @@ const {
   <div
     transition:animate="slide"
     transition:name="post-thumb"
-    class="rounded-lg overflow-hidden"
+    class="rounded-lg overflow-hidden "
   >
     <Picture
       src={image}
       alt={`An image showing the visuals of the ${title} project`}
-      width="550"
-      height="300"
+      width={width}
+      height={height}
+      class={"h-[207px] object-cover"}
     />
   </div>
   <p class="font-body text-text p-4">

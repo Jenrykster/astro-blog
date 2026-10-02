@@ -16,11 +16,11 @@ const projects = await getCollection("projects");
     {
       projects.map((info) => {
         return (
-          <a href={`project/${info.slug}`}>
+          <a href={`project/${info.id}`}>
             <ProjectCard
               {...info.data}
               image={
-                info.data.image ?? "https://source.unsplash.com/3iTRMP8Uq2k"
+                info.data.image
               }
             />
           </a>

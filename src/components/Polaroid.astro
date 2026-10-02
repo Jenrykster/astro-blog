@@ -1,5 +1,5 @@
 ---
-import { Picture } from "astro-imagetools/components";
+import { Picture } from "astro:assets";
 interface Props {
   classList: string;
   description: string;
@@ -16,7 +16,7 @@ const { classList, description, src, alt } = Astro.props;
   <div class="relative">
     <div class="absolute h-full w-full z-10 shadow-[inset_0_0_5px_#00000055]">
     </div>
-    <Picture src={src} alt={alt} height="275" />
+    <Picture src={src} alt={alt} height="275" width="275" />
   </div>
   <p class="py-4 text-center italic opacity-50">{description}</p>
 </div>
