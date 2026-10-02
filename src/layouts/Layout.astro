@@ -11,7 +11,7 @@ interface Props {
   isPost?: boolean;
 }
 
-import '../styles/global.css'
+import "../styles/global.css";
 
 const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
 ---
@@ -41,41 +41,11 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
       rel="stylesheet"
     />
     <title>{title}</title>
-    <script async src="https://us.umami.is/script.js" data-website-id="b95c6e45-a51e-4bdc-ae2e-2bea2e76e6ee"></script>
+    <script
+      async
+      src="https://us.umami.is/script.js"
+      data-website-id="b95c6e45-a51e-4bdc-ae2e-2bea2e76e6ee"></script>
     <ClientRouter />
-    <style is:global>
-      :root {
-        --text: #1f1005;
-        --background: #fef9f6;
-        --primary: #ce6722;
-        --secondary: #f7dfcf;
-        --accent: #d76b23;
-      }
-      .dark {
-        --text: #faebe0;
-        --background: #090401;
-        --primary: #dd7631;
-        --secondary: #301808;
-        --accent: #dc7028;
-      }
-
-      ::-webkit-scrollbar {
-        width: 5px;
-        height: 0.5rem;
-        appearance: none;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0000000e;
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #c6c6c658;
-        border-radius: 20px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: var(--accent);
-        cursor: pointer;
-      }
-    </style>
     <style is:global>
       @reference "../styles/global.css"
 
@@ -102,6 +72,23 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
       }
       .blog-post h6 {
         @apply text-sm;
+      }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 0.5rem;
+        appearance: none;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0000000e;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #c6c6c658;
+        border-radius: 20px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--accent);
+        cursor: pointer;
       }
     </style>
   </head>
