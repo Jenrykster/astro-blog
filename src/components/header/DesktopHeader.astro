@@ -1,72 +1,22 @@
 ---
 import HeaderRoutes from "./HeaderRoutes.astro";
 import ThemeToggler from "./ThemeToggler.astro";
-
-const headerSize = `h-20`;
-const hiddenHeaderTop = `-top-20`;
 ---
 
 <header
   id="desktop-header"
-  class={`hidden sm:flex top-0 ${headerSize} relative overflow-hidden transition-all items-center justify-around border-b-2 border-primary`}
+  transition:name="desktop-header"
+  class="hidden sm:flex bg-background z-10 top-0 h-20 transition-all items-center justify-around border-b-2 border-primary"
 >
   <div
-    transition:persist
     class="p-0 z-10 left-5 top-1 rounded-full bg-background flex justify-center"
   >
     <ThemeToggler />
   </div>
 
   <nav
-    transition:persist
     class="max-h-64 z-10 flex transition-all w-2/4 max-w-2xl justify-around gap-4"
   >
     <HeaderRoutes />
   </nav>
 </header>
-
-<script define:vars={{ headerSize, hiddenHeaderTop }}>
-let isHeaderOpen = true;
-
-document.addEventListener("astro:page-load", () => {
-  const scrollContainer = document.querySelector("#scroll-container");
-  const header = document.querySelector("#desktop-header");
-  const closedHeaderClassList = [hiddenHeaderTop, "h-0", "border-b-0"];
-  const openHeaderClassList = ["top-0", headerSize, "border-b-2"];
-
-  function closeHeader() {
-    openHeaderClassList.forEach((cssClass) =>
-      header?.classList.remove(cssClass),
-    );
-    closedHeaderClassList.forEach((cssClass) =>
-      header?.classList.add(cssClass),
-    );
-    setTimeout(() => {
-      isHeaderOpen = false;
-    }, 155);
-  }
-
-  function openHeader() {
-    openHeaderClassList.forEach((cssClass) =>
-      header?.classList.add(cssClass),
-    );
-    closedHeaderClassList.forEach((cssClass) =>
-      header?.classList.remove(cssClass),
-    );
-    setTimeout(() => {
-      isHeaderOpen = true;
-    }, 155);
-  }
-
-  let prevScroll = scrollContainer?.scrollTop ?? 0;
-  scrollContainer?.addEventListener("scroll", () => {
-    const currentScroll = scrollContainer.scrollTop;
-    if (currentScroll > prevScroll && isHeaderOpen) {
-      closeHeader();
-    } else if (currentScroll < prevScroll && !isHeaderOpen) {
-      openHeader();
-    }
-    prevScroll = currentScroll;
-  });
-});
-</script>
