@@ -12,8 +12,7 @@ const {
   DEV: devEnv,
 } = import.meta.env;
 
-
-const {width, height} = await inferRemoteSize(image.url)
+const { width, height } = await inferRemoteSize(image.url);
 ---
 
 <Layout title={title} description={description} isPost thumbnail={image.url}>
@@ -32,7 +31,13 @@ const {width, height} = await inferRemoteSize(image.url)
       </p>
     </div>
   </div>
-  <Picture src={image.url} alt={image.alt} width={width} height={height} class="w-[550px] h-[300px] object-cover" />
+  <Picture
+    src={image.url}
+    alt={image.alt}
+    width={width}
+    height={height}
+    class="w-[550px] h-[300px] object-cover"
+  />
   <q class="text-text font-body p-4">
     {description}
   </q>
@@ -56,6 +61,37 @@ const {width, height} = await inferRemoteSize(image.url)
     data-loading="lazy"
     crossorigin="anonymous"
     async></script>
+
+  <script>
+    import type { ThemeChanged } from "../types/events";
+    function setGiscusTheme(theme: string) {
+      const iframe = document.querySelector<HTMLIFrameElement>(
+        "iframe.giscus-frame",
+      );
+      if (!iframe || !iframe.contentWindow) return;
+      iframe.contentWindow.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme,
+            },
+          },
+        },
+        "https://giscus.app",
+      );
+    }
+
+    addEventListener("load", () => {
+      const currentTheme = localStorage.getItem("theme");
+      if (!currentTheme) return;
+
+      setGiscusTheme(currentTheme);
+    });
+
+    addEventListener("themechanged", (ev) => {
+      setGiscusTheme(ev.theme);
+    });
+  </script>
   <script define:vars={{ slug, secret, viewCounterURL, devEnv }}>
     async function getAndUpdateViews() {
       const res = await fetch(

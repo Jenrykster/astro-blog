@@ -15,6 +15,8 @@ import LottieAnimation from "astro-integration-lottie/Lottie.astro";
 </div>
 
 <script>
+  import { ThemeChangedEvent } from "../../events";
+
   function handleTheme() {
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
@@ -53,7 +55,11 @@ import LottieAnimation from "astro-integration-lottie/Lottie.astro";
       });
     }
     document.documentElement.classList.toggle("dark");
-    localStorage.theme = localStorage.theme === "dark" ? "light" : "dark";
+
+    const newTheme = localStorage.theme === "dark" ? "light" : "dark";
+
+    localStorage.theme = newTheme;
+    dispatchEvent(new ThemeChangedEvent(newTheme));
   }
 
   const setupListeners = () => {
