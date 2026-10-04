@@ -4,9 +4,6 @@
 import type { ThemeChangedEvent } from "./events";
 
 declare global {
-  function loadLottie(id?: string): Promise<void>;
-
-
   interface GlobalEventHandlersEventMap {
     'themechanged': ThemeChangedEvent;
   }
