@@ -71,8 +71,9 @@ const {width, height} = await inferRemoteSize(image)
     <Picture
       src={image}
       alt={`An image showing the visuals of the ${title} project`}
-      width={width}
-      height={height}
+      width={365}
+      height={207}
+      densities={[1, 1.5]}
       class={"h-[207px] object-cover"}
     />
   </div>

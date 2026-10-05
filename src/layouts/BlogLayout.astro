@@ -2,7 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { Picture } from "astro:assets";
 import Layout from "./Layout.astro";
-import { inferRemoteSize } from "astro:assets";
 
 const { slug } = Astro.params;
 const { title, description, date, image } = Astro.props.frontmatter;
@@ -11,8 +10,6 @@ const {
   PUBLIC_SECRET_LOL: secret,
   DEV: devEnv,
 } = import.meta.env;
-
-const { width, height } = await inferRemoteSize(image.url);
 ---
 
 <Layout title={title} description={description} isPost thumbnail={image.url}>
@@ -34,8 +31,9 @@ const { width, height } = await inferRemoteSize(image.url);
   <Picture
     src={image.url}
     alt={image.alt}
-    width={width}
-    height={height}
+    width={550}
+    height={300}
+    densities={[1, 2]}
     class="w-[550px] h-[300px] object-cover"
   />
   <q class="text-text font-body p-4">
