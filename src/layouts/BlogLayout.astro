@@ -43,68 +43,79 @@ const {
     <slot />
     <div class="giscus my-10"></div>
   </section>
-  <script
-    src="https://giscus.app/client.js"
-    data-repo="jenrykster/astro-blog"
-    data-repo-id="R_kgDOKX1xHQ"
-    data-category="Giscus"
-    data-category-id="DIC_kwDOKX1xHc4CZ8oc"
-    data-mapping="url"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="top"
-    data-theme="preferred_color_scheme"
-    data-lang="en"
-    data-loading="lazy"
-    crossorigin="anonymous"
-    async></script>
+    <script is:inline data-astro-rerun>
+      (() => {
+        const container = document.querySelector(".giscus");
+        if (!container) return;
 
-  <script>
-    import type { ThemeChanged } from "../types/events";
-    function setGiscusTheme(theme: string) {
-      const iframe = document.querySelector<HTMLIFrameElement>(
-        "iframe.giscus-frame",
-      );
-      if (!iframe || !iframe.contentWindow) return;
-      iframe.contentWindow.postMessage(
-        {
-          giscus: {
-            setConfig: {
-              theme,
+        const storedTheme = localStorage.getItem("theme");
+        const giscusTheme = storedTheme || "preffered_color_scheme";
+
+        const script = document.createElement("script");
+        script.src = "https://giscus.app/client.js";
+        script.setAttribute("data-repo", "jenrykster/astro-blog");
+        script.setAttribute("data-repo-id", "R_kgDOKX1xHQ");
+        script.setAttribute("data-category", "Giscus");
+        script.setAttribute("data-category-id", "DIC_kwDOKX1xHc4CZ8oc");
+        script.setAttribute("data-mapping", "url");
+        script.setAttribute("data-strict", "0");
+        script.setAttribute("data-reactions-enabled", "1");
+        script.setAttribute("data-emit-metadata", "0");
+        script.setAttribute("data-input-position", "top");
+        script.setAttribute("data-lang", "en");
+        script.setAttribute("crossorigin", "anonymous");
+        script.async = true;
+
+        script.setAttribute("data-theme", giscusTheme);
+
+        container.appendChild(script);
+      })();
+    </script>
+    <script is:inline data-astro-rerun define:vars={{ isDev: devEnv }}>
+      function getGiscusIframe() {
+        const iframe = document.querySelector("iframe.giscus-frame");
+        if (!iframe && isDev) {
+          console.error("Unable to get a reference to the giscus iframe");
+        }
+
+        return iframe;
+      }
+
+      function setGiscusTheme(theme) {
+        getGiscusIframe()?.contentWindow?.postMessage(
+          {
+            giscus: {
+              setConfig: {
+                theme,
+              },
             },
           },
-        },
-        "https://giscus.app",
-      );
-    }
-
-    addEventListener("load", () => {
-      const currentTheme = localStorage.getItem("theme");
-      if (!currentTheme) return;
-
-      setGiscusTheme(currentTheme);
-    });
-
-    addEventListener("themechanged", (ev) => {
-      setGiscusTheme(ev.theme);
-    });
-  </script>
-  <script define:vars={{ slug, secret, viewCounterURL, devEnv }}>
-    async function getAndUpdateViews() {
-      const res = await fetch(
-        `${viewCounterURL}?post=${slug}&secret=${secret}`,
-      );
-      const info = await res.json();
-
-      if (info.item) {
-        document.querySelector("#number-of-views").innerText =
-          info.item.numberOfViews;
+          "https://giscus.app",
+        );
       }
-    }
-    if (!devEnv) {
-      window.addEventListener("astro:after-swap", getAndUpdateViews);
-      getAndUpdateViews();
-    }
-  </script>
+
+
+      addEventListener("themechanged", (ev) => {
+        setGiscusTheme(ev.theme);
+      });
+
+    </script>
+
+    <script is:inline define:vars={{ slug, secret, viewCounterURL, devEnv }}>
+      async function getAndUpdateViews() {
+        const res = await fetch(
+          `${viewCounterURL}?post=${slug}&secret=${secret}`,
+        );
+        const info = await res.json();
+
+        if (info.item) {
+          document.querySelector("#number-of-views").innerText =
+            info.item.numberOfViews;
+        }
+      }
+      if (!devEnv) {
+        window.addEventListener("astro:after-swap", getAndUpdateViews);
+        getAndUpdateViews();
+      }
+    </script>
 </Layout>
