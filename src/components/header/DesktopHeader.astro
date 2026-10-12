@@ -6,7 +6,7 @@ import ThemeToggler from "./ThemeToggler.astro";
 <header
   id="desktop-header"
   transition:name="desktop-header"
-  class="hidden sm:flex bg-background z-10 top-0 h-20 transition-all items-center justify-around border-b-2 border-primary"
+  class="flex bg-background z-10 top-0 h-20 transition-all items-center justify-around border-b-2 border-primary"
 >
   <div
     class="p-0 z-10 left-5 top-1 rounded-full bg-background flex justify-center"
@@ -15,7 +15,7 @@ import ThemeToggler from "./ThemeToggler.astro";
   </div>
 
   <nav
-    class="max-h-64 z-10 flex transition-all w-2/4 max-w-2xl justify-around gap-4"
+    class="sm:gap-12 sm:max-h-64 z-10 flex transition-all max-w-2xl justify-around gap-4"
   >
     <HeaderRoutes />
   </nav>

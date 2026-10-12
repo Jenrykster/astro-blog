@@ -63,8 +63,8 @@ import LottieAnimation from "astro-integration-lottie/Lottie.astro";
   }
 
   const setupListeners = () => {
-    const buttons = document.querySelectorAll("[data-theme-toggler]");
-    buttons.forEach((button) => button.addEventListener("click", toggleTheme));
+    const button = document.querySelector("[data-theme-toggler]");
+    button?.addEventListener("click", toggleTheme);
 
     document.addEventListener("astro-lottie-loaded", () => {
       if (localStorage.theme === "dark") {
