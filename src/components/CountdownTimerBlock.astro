@@ -1,0 +1,106 @@
+---
+const { title, targetTime, source } = Astro.props;
+
+const now = new Date();
+const monthStart = new Date();
+monthStart.setDate(1);
+
+const dTime = now.getTime() - monthStart.getTime();
+const dTarget = targetTime.getTime() - monthStart.getTime();
+const progress = dTime / dTarget;
+
+function getPieSlicePath(percentage: number, r = 33) {
+  const cx = 50, cy = 50;
+  
+  const p = percentage >= 100 ? 99.99 : percentage; 
+  
+  const topY = cy - r;
+  
+  const angle = (p / 100) * 2 * Math.PI;
+  
+  const x = cx + r * Math.sin(angle);
+  const y = cy - r * Math.cos(angle);
+  
+  const largeArcFlag = p > 50 ? 1 : 0;
+  
+  return `M 50,50 L 50 ${topY.toFixed(2)} A ${r},${r} 0 ${largeArcFlag},1 ${x.toFixed(2)},${y.toFixed(2)} Z`;
+}
+
+const handRotation = progress * 360
+
+function pluralize(word: string, n: number) {
+  return n === 1 ? word : word + 's'
+}
+
+function timeLeft(to: Date): string {
+    const msLeft = Math.abs(to.getTime() - now.getTime());
+    const minutesLeft = Math.floor(msLeft / 1000 / 60) 
+    if (minutesLeft < 60) {
+      return `${minutesLeft} ${pluralize('minute', minutesLeft)} left!`
+    }
+
+    const hoursLeft = Math.floor(minutesLeft / 60)
+    if (hoursLeft < 24) {
+      return `${hoursLeft} ${pluralize('hour', hoursLeft)} left!`
+    }
+
+    const daysLeft = Math.floor(hoursLeft / 24)
+
+    return `${daysLeft} ${pluralize('day', daysLeft)} left`    
+}
+
+function getFormattedDate(date: Date): string {
+  const isMidnight = date.getHours() === 0 && 
+                   date.getMinutes() === 0 && 
+                   date.getSeconds() === 0; 
+
+  return isMidnight ? date.toLocaleDateString() : date.toLocaleString()
+}
+
+
+const timerLabel = timeLeft(targetTime)
+const formattedDate = getFormattedDate(targetTime)
+---
+
+<div
+  class="relative aspect-video flex flex-col items-center text-center justify-between p-4 border-2 border-secondary"
+>
+  <p class="text-text">{title}</p>
+
+  <svg class="stroke-secondary" width="200" viewBox="0 0 100 100">
+    <circle fill="none" stroke-width="3" r="40" cx="50" cy="50"></circle>
+    <circle
+      class="opacity-50"
+      fill="none"
+      stroke-width="6"
+      stroke-dasharray="5"
+      stroke-dashoffset="7.5"
+      r="35"
+      cx="50"
+      cy="50"></circle>
+    <line
+      transform-origin="50 50"
+      transform=`rotate(${handRotation})`
+      x1="50"
+      y1="50"
+      x2="50"
+      y2="19"
+      stroke="red"
+      stroke-width="2"
+      stroke-linecap="round"></line>
+    <path
+      class="fill-primary opacity-20"
+     d={getPieSlicePath(progress * 100)} stroke-width="2"></path>
+  </svg>
+
+  <div class="absolute w-fit h-min p-2 flex bottom-10 items-center justify-center bg-text">
+    <p class="text-background">{timerLabel}</p>
+  </div>
+  
+  <div >
+  </div>
+  <div class="flex w-full justify-between">
+    <p class="text-text text-sm">{formattedDate}</p>
+    <p class="text-text text-sm">{source}</p>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+---
+import CountdownTimerBlock from "../components/CountdownTimerBlock.astro";
+import Layout from "../layouts/Layout.astro";
+
+const apiUrl = import.meta.env.BACKEND_API_URL
+
+const res = await fetch(`${apiUrl}/important_dates`).then((r) =>
+  r.json(),
+);
+
+const dates = (res.dates ?? []) as Array<{
+  id: number;
+  title: string;
+  source: string;
+  time: string;
+}>;
+const now = Date.now();
+const mappedDates = dates
+  .map((date) => ({ ...date, time: new Date(date.time) }))
+
+const futureEvents = mappedDates.filter((date) => date.time.getTime() >= now);
+const pastEvents = mappedDates.filter((date) => date.title && date.time.getTime() < now);
+---
+
+<Layout title="Things I'm looking forward to">
+  <div
+    id="countdown-grid"
+    class="mt-4 grid gap-2 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] w-full"
+  >
+    {
+      futureEvents.map((date) => (
+        <CountdownTimerBlock
+          title={date.title}
+          targetTime={date.time}
+          source={date.source}
+        />
+      ))
+    }
+  </div>
+  <h2 class="mt-4 text-2xl text-text">Past hyped events</h2>
+  <table class="mt-4 w-full md:w-2/3 table-auto">
+  {pastEvents.map(event => 
+    <tr class="h-8 border-b-secondary border-b-2">
+    <td class="w-25">{event.time.toLocaleDateString()}</td>
+    <td>{event.title}</td>
+    <td>{event.source}</td>
+    </tr>
+  )}
+</table> 
+</Layout>
+
