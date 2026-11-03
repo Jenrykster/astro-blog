@@ -1,10 +1,12 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, memoryCache } from "astro/config";
 
 import lottie from "astro-integration-lottie";
 
 import tailwindcss from "@tailwindcss/vite";
 
 import icon from "astro-icon";
+
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,5 +18,17 @@ export default defineConfig({
 
   image: {
     domains: ['images.unsplash.com']
+  },
+
+  cache: {
+    provider: memoryCache(),
+  },
+
+  adapter: node({
+    mode: "standalone"
+  }),
+
+  server: {
+    host: true
   }
 });
