@@ -2,7 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { ClientRouter } from "astro:transitions";
 import DesktopHeader from "../components/header/DesktopHeader.astro";
-import MobileHeader from "../components/header/MobileHeader.astro";
 interface Props {
   title: string;
   description?: string;
@@ -104,7 +103,7 @@ const { title, description, hideHeading, thumbnail, isPost } = Astro.props;
       >
         {
           !hideHeading && (
-            <h1 class="text-text font-heading text-4xl text-center font-bold">
+            <h1 class="text-text font-heading text-3xl text-center font-bold">
               {title}
             </h1>
           )
