@@ -1,0 +1,28 @@
+---
+
+const { slug } = Astro.props;
+
+const apiUrl = process.env.BACKEND_API_URL;
+const PAGE_VIEW_COOKIE = `VIEWED_${slug}`;
+
+const hasViewed = Astro.cookies.has(PAGE_VIEW_COOKIE);
+
+let views = "...";
+if (!hasViewed) {
+  const res = await fetch(`${apiUrl}/page_views/${slug}/increment`, {
+    method: "POST",
+  }).then((r) => r.json());
+  views = res.views;
+  
+  Astro.cookies.set(PAGE_VIEW_COOKIE, {
+    path: `/blog/${slug}`,
+    httpOnly: true,
+    maxAge: 60 * 30,
+  });
+} else {
+  const res = await fetch(`${apiUrl}/page_views/${slug}`).then((r) => r.json());
+  views = res.views;
+}
+
+---
+<p>{views}</p>
